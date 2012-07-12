@@ -15,15 +15,15 @@ This plugin adds an additional piece of information to the stanzas sent to the X
 Clients not providing the data do not cause issues.
 
 Example:
-![Demo of show client plugin in action](https://github.com/lloydwatkin/buddycloud-plugin-show-client/raw/master/docs/screen-shot.png)
+![Demo of show client plugin in action](raw/master/docs/screen-shot.png)
 
 How to use:
 
-At present you'll need the version of buddycloud-ui from https://github.com/lloydwatkin/buddycloud-webclient/tree/plugins.
+At present you'll need the version of buddycloud-ui from https://github.com/lloydwatkin/buddycloud-webclient/tree/plugin.
 
-Checkout this plugin to /src/plugins/show-client-0.1.0
+Checkout these plugins to /src/plugins
 
-Update assets/config.js with the following entry:
+Update assets/config.js with the following entry example:
 
 ```json
 
@@ -33,7 +33,5 @@ Update assets/config.js with the following entry:
 ```
 
 Then build the ui (./development). This will generate a file plugin-list.coffee which will allow init.coffee to load the required plugins in the browser.
-
-
 
 Plugin for buddycloud UI see http://www.github.com/buddycloud/buddycloud-webclient
