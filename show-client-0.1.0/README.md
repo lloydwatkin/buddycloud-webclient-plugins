@@ -15,7 +15,7 @@ This plugin adds an additional piece of information to the stanzas sent to the X
 Clients not providing the data do not cause issues.
 
 Example:
-![Demo of show client plugin in action](raw/master/docs/screen-shot.png)
+![Demo of show client plugin in action](../../../raw/master/docs/screen-shot.png)
 
 How to use:
 
