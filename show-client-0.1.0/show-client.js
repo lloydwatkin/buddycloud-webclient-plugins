@@ -1,4 +1,4 @@
-exports.plugin = {
+window.app.plugins.push({
 	_app: null,
 	_require: null,
 	_client: null,
@@ -7,6 +7,9 @@ exports.plugin = {
         this._require = require;
         this._determineClient();
         this._modifyView();
+	},
+	showClient: function() {
+		
 	},
 	_modifyView: function() {
 	    this._modifyCommentsView();
@@ -25,7 +28,7 @@ exports.plugin = {
 	    };
 	},
 	_modifyTopicView: function() {
-	    var PostsView = require('../../views/channel/posts').PostsView;
+	    var PostsView = this._require('../../views/channel/posts').PostsView;
 	    var createPost = PostsView.prototype.createPost;
 	    PostsView.prototype.createPost = function (text) {
 	        var post = createPost.call(this, text);
@@ -38,8 +41,8 @@ exports.plugin = {
 	},
 	_modifyTemplate: function() {
 		var self            = this;
-        var dynamictemplate = require('dynamictemplate').Template;
-        var $               = require('dt-selector');
+        var dynamictemplate = this._require('dynamictemplate').Template;
+        var $               = this._require('dt-selector');
         var ready           = dynamictemplate.prototype.ready;
 
         dynamictemplate.prototype.ready = function(callback) {
@@ -85,5 +88,5 @@ exports.plugin = {
 		if (jQuery(el._jquery).find('.client-interface').length == 0) {
 		    el._jquery.append('<input type="hidden" class="client-interface" value="' + this._client + '" />');
 		}
-	},
-};
+	}
+});
