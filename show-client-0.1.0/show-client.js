@@ -1,4 +1,4 @@
-window.app.plugins.push({
+var showClient = {
 	_app: null,
 	_require: null,
 	_client: null,
@@ -7,9 +7,6 @@ window.app.plugins.push({
         this._require = require;
         this._determineClient();
         this._modifyView();
-	},
-	showClient: function() {
-		
 	},
 	_modifyView: function() {
 	    this._modifyCommentsView();
@@ -52,19 +49,19 @@ window.app.plugins.push({
     				self._addDataField(el);
         		});
 	        	$(tpl).on('.postmeta', function(el) {
-                    if (typeof(el.builder.opts.view) != 'undefined'
-                    	&& typeof(el.builder.opts.view.model) != 'undefined'
-                    	&& el.builder.opts.view.model.attributes.client) {
-                	    client = el.builder.opts.view.model.attributes.client.interface;
-                	    
-	        		    if (typeof(el._jquery) != 'undefined' && jQuery(el._jquery).find('.client-used').length == 0) {
-	        			    el._jquery.append('<span class="client-used">Sent from ' + client + '</span>');
-	        	        };   
+              if (el._marked_with_client) return;
+                    if  (el.builder.opts.view
+                      && el.builder.opts.view.model
+                      && el.builder.opts.view.model.has('client')) {
+                	    var client = el.builder.opts.view.model.get('client').interface;
+	        			 el.$span({class:'client-used'}, "Sent from "+client);
+                 el._marked_with_client = true;
         	       };
 	        	});
-	        	
 	        	$(tpl).on('.content', function(el) {
-	        		el._jquery.append('<style> .client-used { display: block;} </style>');
+              el.once('end', function () {
+                  el.$style(".client-used{display:inline-block;padding-right:10px;}");
+              });
 	        	});
         	};
         	return tpl;
@@ -81,14 +78,13 @@ window.app.plugins.push({
 		console.debug('Detected client as "' + this._client + '"');
 	},
 	_addDataField: function(el) {
-		if (el.parent._jquery.attr('class') != 'answer' 
-			&& el.parent._jquery.attr('class') != 'newTopic'
+		if ((el.parent.attr('class') || "").indexOf('answer') === -1
+			&& (el.parent.attr('class') || "").indexOf('newTopic') === -1
 	    ) {
         	return;
         }
 		console.debug(el);
-		if (typeof(el._jquery) != 'undefined' && jQuery(el._jquery).find('.client-interface').length == 0) {
-		    el._jquery.append('<input type="hidden" class="client-interface" value="' + this._client + '" />');
-		}
+    el.$input({type:'hidden', class:'client-interface', value:this._client});
 	}
-});
+};
+app.use(showClient.init.bind(showClient));
