@@ -56,7 +56,8 @@ window.app.plugins.push({
                     	&& typeof(el.builder.opts.view.model) != 'undefined'
                     	&& el.builder.opts.view.model.attributes.client) {
                 	    client = el.builder.opts.view.model.attributes.client.interface;
-	        		    if (jQuery(el._jquery).find('.client-used').length == 0) {
+                	    
+	        		    if (typeof(el._jquery) != 'undefined' && jQuery(el._jquery).find('.client-used').length == 0) {
 	        			    el._jquery.append('<span class="client-used">Sent from ' + client + '</span>');
 	        	        };   
         	       };
@@ -85,7 +86,8 @@ window.app.plugins.push({
 	    ) {
         	return;
         }
-		if (jQuery(el._jquery).find('.client-interface').length == 0) {
+		console.debug(el);
+		if (typeof(el._jquery) != 'undefined' && jQuery(el._jquery).find('.client-interface').length == 0) {
 		    el._jquery.append('<input type="hidden" class="client-interface" value="' + this._client + '" />');
 		}
 	}
