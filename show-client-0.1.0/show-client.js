@@ -1,4 +1,4 @@
-window.app.plugins.push({
+var showClient = {
 	_app: null,
 	_require: null,
 	_client: null,
@@ -7,9 +7,6 @@ window.app.plugins.push({
         this._require = require;
         this._determineClient();
         this._modifyView();
-	},
-	showClient: function() {
-		
 	},
 	_modifyView: function() {
 	    this._modifyCommentsView();
@@ -91,4 +88,5 @@ window.app.plugins.push({
 		    el._jquery.append('<input type="hidden" class="client-interface" value="' + this._client + '" />');
 		}
 	}
-});
+};
+app.use(showClient.init.bind(showClient));
