@@ -15,7 +15,7 @@ var showClient = {
 	    this._modifyTemplate();
 	},
 	_modifyCommentsView: function() {
-		var CommentsView = this._require('../../views/channel/comments').CommentsView;
+		var CommentsView = this._require('./views/channel/comments').CommentsView;
 	    var createPost = CommentsView.prototype.createPost;
 	    CommentsView.prototype.createPost = function (text) {
 	        var post = createPost.call(this, text);
@@ -25,7 +25,7 @@ var showClient = {
 	    };
 	},
 	_modifyTopicView: function() {
-	    var PostsView = this._require('../../views/channel/posts').PostsView;
+	    var PostsView = this._require('./views/channel/posts').PostsView;
 	    var createPost = PostsView.prototype.createPost;
 	    PostsView.prototype.createPost = function (text) {
 	        var post = createPost.call(this, text);
