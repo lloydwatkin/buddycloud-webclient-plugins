@@ -2,7 +2,7 @@
 echo 'Update buddycloud channel status with currently playing track....' . PHP_EOL;
 echo '-----------------------------------------------------------------' . PHP_EOL;
 
-if (!$config = parse_ini_file('./config.ini', true)) {
+if (!$config = parse_ini_file(__DIR__ . '/config.ini', true)) {
     echo 'config.ini does not exist in working directory';
     exit(1);
 }

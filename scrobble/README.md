@@ -11,4 +11,4 @@ Run __php scrobble-to-buddycloud.php__ if there are any errors you will be infor
 ## Tips
 
 * Set up on a cron to save you all the work!
-* Requires PHP>=5.2.1
+* Requires PHP>=5.3.0
