@@ -1,0 +1,14 @@
+[lastfm]
+apiKey   = 75e4351353d37488fa7edebf95cadac0
+username = lastFmUsername
+
+[buddycloud]
+username = your-jid@example.com
+password = your-password
+
+; If not provided https://api.buddycloud.org is used
+apiUrl   = https://api.example.com
+
+; If not provided personal channel is used
+; You must have write access to 'status' node
+channel  = your-jid@example.com
