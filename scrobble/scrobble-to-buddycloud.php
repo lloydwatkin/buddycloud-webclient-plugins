@@ -13,9 +13,8 @@ if (!isset($buddycloud['channel'])) {
     $buddycloud['channel'] = $buddycloud['username'];
 }
 if (!isset($buddycloud['apiUrl'])) {
-    $buddycloud['apiUrl'] == 'https://api.buddycloud.org';
+    $buddycloud['apiUrl'] = 'https://api.buddycloud.org';
 }
-
 $url      = 'http://ws.audioscrobbler.com/2.0?method=user.getrecenttracks&user=' 
     . $lastfm['username'] . '&format=json&api_key=' . $lastfm['apiKey'] . '&limit=2';
 $response = file_get_contents($url);
