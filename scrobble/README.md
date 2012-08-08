@@ -8,6 +8,14 @@ Copy __config.ini.example__ to __config.ini__ and edit the contents to match you
 
 Run __php scrobble-to-buddycloud.php__ if there are any errors you will be informed.
 
+### Template
+
+You can define a template for posts to buddycloud, these are of the form:
+
+    ♫ Listening to: %artist% - %track% (%url%) ♫
+
+In the template the values of %artist%, %track%, and %url% are replaced with the artist name, track name, and Last.fm URL respectively.
+
 ## Tips
 
 * Set up on a cron to save you all the work!

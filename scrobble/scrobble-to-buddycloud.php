@@ -15,6 +15,9 @@ if (!isset($buddycloud['channel'])) {
 if (!isset($buddycloud['apiUrl'])) {
     $buddycloud['apiUrl'] = 'https://api.buddycloud.org';
 }
+if (!isset($buddycloud['template'])) {
+    $buddycloud['template'] = '♫ Listening to: %artist% - %track% (%url%) ♫';
+}
 $url      = 'http://ws.audioscrobbler.com/2.0?method=user.getrecenttracks&user=' 
     . $lastfm['username'] . '&format=json&api_key=' . $lastfm['apiKey'] . '&limit=2';
 $response = file_get_contents($url);
@@ -40,26 +43,26 @@ if (!isset($track) || !isset($track->$attribute)
     exit(0);
 }
 
-$message = '♫ Listening to: ' . $track->name . ' - ' 
-    . $track->artist->$text; 
-if (isset($track->url) && !empty($track->url)) {
-    $url = $track->url;
-    // Try and shorten URL
-    $h = curl_init();
-    curl_setopt($h, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url');
-    curl_setopt($h, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($h, CURLOPT_SSL_VERIFYPEER, 0);
-    curl_setopt($h, CURLOPT_HEADER, 0);
-    curl_setopt($h, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
-    curl_setopt($h, CURLOPT_POST, 1);
-    curl_setopt($h, CURLOPT_POSTFIELDS, json_encode(array('longUrl' => $url)));
-    if (($shorten = curl_exec($h)) && ($json = json_decode($shorten))) {
-        $url = $json->id;
-    }
-    curl_close($h);
-    $message .= " ({$url})";
+$url = $track->url;
+// Try and shorten URL
+$h = curl_init();
+curl_setopt($h, CURLOPT_URL, 'https://www.googleapis.com/urlshortener/v1/url');
+curl_setopt($h, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($h, CURLOPT_SSL_VERIFYPEER, 0);
+curl_setopt($h, CURLOPT_HEADER, 0);
+curl_setopt($h, CURLOPT_HTTPHEADER, array('Content-type:application/json'));
+curl_setopt($h, CURLOPT_POST, 1);
+curl_setopt($h, CURLOPT_POSTFIELDS, json_encode(array('longUrl' => $url)));
+if (($shorten = curl_exec($h)) && ($json = json_decode($shorten))) {
+    $url = $json->id;
 }
-$message .= ' ♫';
+curl_close($h);
+
+$message = str_replace(
+    array('%artist%', '%track%', '%url%'),
+    array($track->artist->$text, $track->name, $url),
+    $buddycloud['template']
+);
 // Send this as buddycloud status
 $url  = $buddycloud['apiUrl'] . '/' . $buddycloud['channel'] 
     . '/content/status';

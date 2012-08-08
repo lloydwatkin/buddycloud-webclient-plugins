@@ -6,6 +6,9 @@ username = lastFmUsername
 username = your-jid@example.com
 password = your-password
 
+; If not provided template below is used
+template = "♫ Listening to: %artist% - %track% (%url%) ♫"
+
 ; If not provided https://api.buddycloud.org is used
 apiUrl   = https://api.example.com
 
