@@ -40,7 +40,7 @@ if (!isset($track) || !isset($track->$attribute)
     exit(0);
 }
 
-$message = 'Listening to: ' . $track->name . ' - ' 
+$message = '♫ Listening to: ' . $track->name . ' - ' 
     . $track->artist->$text; 
 if (isset($track->url) && !empty($track->url)) {
     $url = $track->url;
@@ -59,6 +59,7 @@ if (isset($track->url) && !empty($track->url)) {
     curl_close($h);
     $message .= " ({$url})";
 }
+$message .= ' ♫';
 // Send this as buddycloud status
 $url  = $buddycloud['apiUrl'] . '/' . $buddycloud['channel'] 
     . '/content/status';
