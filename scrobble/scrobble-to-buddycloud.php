@@ -9,6 +9,9 @@ if (!$config = parse_ini_file(__DIR__ . '/config.ini', true)) {
 $lastfm     = $config['lastfm'];
 $buddycloud = $config['buddycloud'];
 
+if (!isset($lastfm['now-playing-time'])) {
+    $lastfm['now-playing-time'] = 60;
+}
 if (!isset($buddycloud['channel'])) {
     $buddycloud['channel'] = $buddycloud['username'];
 }
@@ -33,12 +36,14 @@ if (false === is_array($details->recenttracks->track)) {
     echo 'No currently playing track' . PHP_EOL;
     exit(0);
 }
-$track     = $details->recenttracks->track[0];
-$attribute = '@attr';
-$text      = '#text';
-if (!isset($track) || !isset($track->$attribute) 
-    || ($track->$attribute->nowplaying != true)
-) {
+$track      = $details->recenttracks->track[0];
+$text       = '#text';
+$nowPlaying = false;
+
+if (isset($track) && ((time() - $track->date->uts) < $lastfm['now-playing-time'])) {
+    $nowPlaying = true;
+} 
+if (false === $nowPlaying) {   
     echo 'No track currently playing' . PHP_EOL;
     exit(0);
 }

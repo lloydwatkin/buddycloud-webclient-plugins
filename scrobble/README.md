@@ -20,3 +20,10 @@ In the template the values of %artist%, %track%, and %url% are replaced with the
 
 * Set up on a cron to save you all the work!
 * Requires PHP>=5.3.0
+
+# Recent changes
+
+* Stopped using 'nowplaying' attribute
+  * Not reliable enough, especially for obscure tracks
+  * Now checking time track started playing
+* Allow user to provide a post template

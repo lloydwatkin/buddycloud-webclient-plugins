@@ -1,17 +1,20 @@
 [lastfm]
 apiKey   = 75e4351353d37488fa7edebf95cadac0
 username = lastFmUsername
+; A track is considered 'now playing' if it started playing less than 
+; this many seconds ago (default: 60)
+; now-playing-time = 60
 
 [buddycloud]
 username = your-jid@example.com
 password = your-password
 
 ; If not provided template below is used
-template = "♫ Listening to: %artist% - %track% (%url%) ♫"
+; template = "♫ Listening to: %artist% - %track% (%url%) ♫"
 
 ; If not provided https://api.buddycloud.org is used
-apiUrl   = https://api.example.com
+; apiUrl   = https://api.example.com
 
 ; If not provided personal channel is used
 ; You must have write access to 'status' node
-channel  = your-jid@example.com
+; channel  = your-jid@example.com
